@@ -33,6 +33,23 @@
       <!-- 常规 -->
       <section class="panel active" data-panel="general">
         <div class="card">
+          <div class="card-title">外观</div>
+          <label class="row">
+            <div class="row-label">
+              <b>主题</b>
+              <span>默认跟随系统；也可以固定浅色或深色</span>
+            </div>
+            <div class="row-input inline">
+              <select id="set-theme" class="theme-select">
+                <option value="system">跟随系统</option>
+                <option value="light">浅色</option>
+                <option value="dark">深色</option>
+              </select>
+            </div>
+          </label>
+        </div>
+
+        <div class="card">
           <div class="card-title">陪伴方式</div>
           <label class="row">
             <div class="row-label">
@@ -267,7 +284,7 @@
       <span id="save-status"></span>
       <div class="footer-actions">
         <button class="ghost" id="btn-close">关闭</button>
-        <button class="primary" id="btn-save">保存常规与模型</button>
+        <button class="primary" id="btn-save">保存设置</button>
       </div>
     </footer>
   </div>

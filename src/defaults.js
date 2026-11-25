@@ -139,6 +139,9 @@ const DEFAULT_CONFIG = {
     launchAtLogin: false,
     position: null
   },
+  ui: {
+    theme: 'system'
+  },
   memory: {
     autoSummarize: true,
     keepEpisodes: 120

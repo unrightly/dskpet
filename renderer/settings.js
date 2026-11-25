@@ -40,6 +40,7 @@
   /* ---------------- general + model ---------------- */
 
   function fillGeneral(cfg) {
+    $('#set-theme').value = cfg.ui?.theme || 'system';
     $('#set-interval').value = cfg.pet.bubbleIntervalMin;
     $('#set-smart').checked = !!cfg.pet.smartBubble;
     $('#set-scale').value = cfg.pet.scale;
@@ -102,6 +103,9 @@
         scale,
         alwaysOnTop: $('#set-ontop').checked,
         launchAtLogin: $('#set-login').checked
+      },
+      ui: {
+        theme: $('#set-theme').value
       }
     };
 
@@ -131,7 +135,7 @@
     } finally {
       state.saving = false;
       btn.disabled = false;
-      btn.textContent = '保存常规与模型';
+      btn.textContent = '保存设置';
     }
   }
 

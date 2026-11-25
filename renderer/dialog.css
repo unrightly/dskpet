@@ -143,3 +143,46 @@
     transition: none;
   }
 }
+
+/* ---------------- dark theme ---------------- */
+
+@media (prefers-color-scheme: dark) {
+  .app-dialog-overlay {
+    background: rgba(8, 6, 5, 0.5);
+  }
+
+  .app-dialog-card {
+    background: linear-gradient(180deg, #2C241E 0%, #241E1A 100%);
+    border-color: #453930;
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.5),
+      0 4px 14px rgba(0, 0, 0, 0.3);
+  }
+
+  .app-dialog-icon {
+    background: #3A2C1F;
+    color: #E8B77A;
+  }
+
+  .app-dialog-icon.danger {
+    background: #3A2420;
+    color: #F08A7C;
+  }
+
+  .app-dialog-title {
+    color: #F4EADF;
+  }
+
+  .app-dialog-message {
+    color: #A8927B;
+  }
+
+  .app-dialog-btn.ghost {
+    border-color: #453930;
+    color: #D8C7B4;
+  }
+
+  .app-dialog-btn.ghost:hover {
+    background: #332A23;
+  }
+}

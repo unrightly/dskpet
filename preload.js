@@ -29,7 +29,7 @@ const api = {
   onPetConfig: (cb) => subscribe('pet:config', cb),
 
   // ---------- chat ----------
-  chatBootstrap: () => ipcRenderer.invoke('chat:bootstrap'),
+  chatBootstrap: (opts) => ipcRenderer.invoke('chat:bootstrap', opts),
   newSession: () => ipcRenderer.invoke('chat:new-session'),
   loadSession: (id) => ipcRenderer.invoke('chat:load-session', id),
   deleteSession: (id) => ipcRenderer.invoke('chat:delete-session', id),

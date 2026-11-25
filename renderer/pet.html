@@ -16,158 +16,281 @@
 
     <div id="pet-wrap" class="interactive" aria-label="桌面宠物">
       <div id="fx"></div>
-      <svg id="pet" class="mood-idle" viewBox="0 0 240 220" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg id="pet" class="mood-idle" viewBox="0 0 240 230" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <radialGradient id="furGrad" cx="50%" cy="38%" r="72%">
-            <stop offset="0%" stop-color="#FFFDF8" />
-            <stop offset="62%" stop-color="#FBEBD7" />
-            <stop offset="100%" stop-color="#F3D7B6" />
+          <radialGradient id="furGrad" cx="50%" cy="34%" r="76%">
+            <stop offset="0%" stop-color="#FFFEFB" />
+            <stop offset="52%" stop-color="#FDF0DC" />
+            <stop offset="82%" stop-color="#F8E3C6" />
+            <stop offset="100%" stop-color="#F1D2AB" />
           </radialGradient>
-          <linearGradient id="tailGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#F6D9B8" />
-            <stop offset="100%" stop-color="#FFE7B4" />
+          <linearGradient id="headShade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55" />
+            <stop offset="55%" stop-color="#FFFFFF" stop-opacity="0" />
+            <stop offset="100%" stop-color="#E8BB8B" stop-opacity="0.28" />
           </linearGradient>
+          <linearGradient id="earInner" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FAC8C6" />
+            <stop offset="100%" stop-color="#F19A9C" />
+          </linearGradient>
+          <radialGradient id="irisGrad" cx="42%" cy="36%" r="72%">
+            <stop offset="0%" stop-color="#F0C07A" />
+            <stop offset="55%" stop-color="#C98A4E" />
+            <stop offset="100%" stop-color="#8A5732" />
+          </radialGradient>
+          <linearGradient id="tailGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stop-color="#F6DCBB" />
+            <stop offset="100%" stop-color="#FFEBC8" />
+          </linearGradient>
+          <linearGradient id="scarfGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#A8E2D0" />
+            <stop offset="100%" stop-color="#6FBFAB" />
+          </linearGradient>
+          <radialGradient id="bellGrad" cx="38%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#FFE79A" />
+            <stop offset="55%" stop-color="#F5C451" />
+            <stop offset="100%" stop-color="#D99B2D" />
+          </radialGradient>
+          <linearGradient id="starGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#FFE9A6" />
+            <stop offset="100%" stop-color="#F2B84B" />
+          </linearGradient>
+          <radialGradient id="blushGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F79FA2" stop-opacity="0.85" />
+            <stop offset="100%" stop-color="#F79FA2" stop-opacity="0" />
+          </radialGradient>
           <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color="#FFE9A8" stop-opacity="0.95" />
             <stop offset="100%" stop-color="#FFE9A8" stop-opacity="0" />
           </radialGradient>
         </defs>
 
-        <ellipse class="ground-shadow" cx="120" cy="204" rx="52" ry="8" fill="#1B1208" opacity="0.13" />
+        <ellipse class="ground-shadow" cx="120" cy="217" rx="54" ry="7.5" fill="#1B1208" opacity="0.14" />
 
+        <!-- 尾巴 -->
         <g class="tail-g">
-          <path class="tail" d="M166 166 C202 170 210 136 189 119" fill="none" stroke="url(#tailGrad)" stroke-width="15" stroke-linecap="round" />
-          <circle class="tail-glow" cx="189" cy="119" r="12" fill="url(#glowGrad)" />
-          <circle class="tail-tip" cx="189" cy="119" r="6.5" fill="#FFEDBE" />
+          <path class="tail" d="M154 198 C192 202 211 176 201 150 C195 135 180 135 179 146" fill="none" stroke="url(#tailGrad)" stroke-width="15" stroke-linecap="round" />
+          <path class="tail-fluff" d="M201 150 C209 140 207 126 196 121 C187 117 180 125 183 134 C186 143 194 149 201 150 Z" fill="#FFEBC8" stroke="#DFB383" stroke-width="1.2" />
+          <path class="tail-swirl" d="M166 199 C190 198 202 184 201 168" fill="none" stroke="#FFF8EA" stroke-width="2.2" opacity="0.6" stroke-linecap="round" />
         </g>
 
+        <!-- 身体 -->
         <g class="body-g">
-          <!-- ears -->
-          <g class="ear ear-l">
-            <path d="M70 52 L58 14 Q56 8 63 12 L94 33 Z" fill="url(#furGrad)" stroke="#EBCBA6" stroke-width="1.4" stroke-linejoin="round" />
-            <path d="M70 46 L63 25 L85 37 Z" fill="#F6C0C0" opacity="0.85" />
-          </g>
-          <g class="ear ear-r">
-            <path d="M170 52 L182 14 Q184 8 177 12 L146 33 Z" fill="url(#furGrad)" stroke="#EBCBA6" stroke-width="1.4" stroke-linejoin="round" />
-            <path d="M170 46 L177 25 L155 37 Z" fill="#F6C0C0" opacity="0.85" />
-          </g>
+          <path class="body" d="M120 148 C92 148 78 168 79 192 C80 208 97 214 120 214 C143 214 160 208 161 192 C162 168 148 148 120 148 Z" fill="url(#furGrad)" stroke="#D9AE7C" stroke-width="1.5" />
+          <path class="chest-fluff" d="M103 176 Q110 187 120 189 Q130 187 137 176 Q128 181 120 181 Q112 181 103 176 Z" fill="#FFFDF6" opacity="0.75" />
+          <ellipse class="paw paw-l" cx="101" cy="207" rx="13.5" ry="8" fill="#FFF9EE" stroke="#D9AE7C" stroke-width="1.2" />
+          <ellipse class="paw paw-r" cx="139" cy="207" rx="13.5" ry="8" fill="#FFF9EE" stroke="#D9AE7C" stroke-width="1.2" />
+          <path d="M95 209 v3 M101 210 v3 M107 209 v3" stroke="#E3BE92" stroke-width="1.3" stroke-linecap="round" opacity="0.85" />
+          <path d="M133 209 v3 M139 210 v3 M145 209 v3" stroke="#E3BE92" stroke-width="1.3" stroke-linecap="round" opacity="0.85" />
+        </g>
 
-          <!-- body / head -->
-          <path class="body" d="M120 30 C80 30 54 62 54 104 C54 148 82 178 120 178 C158 178 186 148 186 104 C186 62 160 30 120 30 Z" fill="url(#furGrad)" stroke="#EBCBA6" stroke-width="1.5" />
+        <!-- 头 -->
+        <g class="head-g">
+          <g class="head-tilt-g">
+            <!-- 耳朵 -->
+            <g class="ear ear-l">
+              <path d="M68 76 C56 56 44 30 47 19 C49 12 58 15 69 26 L98 51 Z" fill="url(#furGrad)" stroke="#D9AE7C" stroke-width="1.6" stroke-linejoin="round" />
+              <path d="M70 68 C61 52 52 32 54 24 C56 20 61 23 68 33 L91 51 Z" fill="url(#earInner)" opacity="0.92" />
+              <path d="M49 20 L43 13 M55 23 L49 16 M62 27 L57 19" stroke="#E9C9A3" stroke-width="2" stroke-linecap="round" opacity="0.85" />
+            </g>
+            <g class="ear ear-r">
+              <path d="M172 76 C184 56 196 30 193 19 C191 12 182 15 171 26 L142 51 Z" fill="url(#furGrad)" stroke="#D9AE7C" stroke-width="1.6" stroke-linejoin="round" />
+              <path d="M170 68 C179 52 188 32 186 24 C184 20 179 23 172 33 L149 51 Z" fill="url(#earInner)" opacity="0.92" />
+              <path d="M191 20 L197 13 M185 23 L191 16 M178 27 L183 19" stroke="#E9C9A3" stroke-width="2" stroke-linecap="round" opacity="0.85" />
+            </g>
 
-          <!-- paws -->
-          <ellipse class="paw" cx="100" cy="174" rx="15" ry="8.5" fill="#FFF8EC" stroke="#EBCBA6" stroke-width="1.2" />
-          <ellipse class="paw" cx="140" cy="174" rx="15" ry="8.5" fill="#FFF8EC" stroke="#EBCBA6" stroke-width="1.2" />
-          <path d="M94 176 v3 M100 177 v3 M106 176 v3" stroke="#E4C39C" stroke-width="1.3" stroke-linecap="round" opacity="0.8" />
-          <path d="M134 176 v3 M140 177 v3 M146 176 v3" stroke="#E4C39C" stroke-width="1.3" stroke-linecap="round" opacity="0.8" />
+            <!-- 脸 -->
+            <path class="head" d="M120 34 C88 34 62 48 50 74 C40 96 38 122 46 144 C54 168 82 187 120 187 C158 187 186 168 194 144 C202 122 200 96 190 74 C178 48 152 34 120 34 Z" fill="url(#furGrad)" stroke="#D9AE7C" stroke-width="1.7" />
+            <path class="head-shade" d="M120 34 C88 34 62 48 50 74 C40 96 38 122 46 144 C54 168 82 187 120 187 C158 187 186 168 194 144 C202 122 200 96 190 74 C178 48 152 34 120 34 Z" fill="url(#headShade)" />
 
-          <!-- blush -->
-          <g class="blush">
-            <ellipse cx="74" cy="128" rx="11" ry="7" fill="#F7A8A8" opacity="0.5" />
-            <ellipse cx="166" cy="128" rx="11" ry="7" fill="#F7A8A8" opacity="0.5" />
-          </g>
+            <!-- 脸颊绒毛 -->
+            <path class="cheek-tuft cheek-l" d="M52 130 C39 132 32 141 39 147 C31 154 35 165 48 167 C45 156 47 142 52 130 Z" fill="url(#furGrad)" stroke="#D9AE7C" stroke-width="1.4" />
+            <path class="cheek-tuft cheek-r" d="M188 130 C201 132 208 141 201 147 C209 154 205 165 192 167 C195 156 193 142 188 130 Z" fill="url(#furGrad)" stroke="#D9AE7C" stroke-width="1.4" />
 
-          <!-- whiskers -->
-          <g class="whiskers" stroke="#D9B79A" stroke-width="1.5" stroke-linecap="round" opacity="0.75">
-            <path d="M64 132 L44 127" />
-            <path d="M64 139 L43 139" />
-            <path d="M64 146 L46 151" />
-            <path d="M176 132 L196 127" />
-            <path d="M176 139 L197 139" />
-            <path d="M176 146 L194 151" />
-          </g>
+            <!-- 呆毛 -->
+            <g class="ahoge">
+              <path d="M118 36 C108 22 115 11 128 10 C139 9 145 16 140 23" fill="none" stroke="#E6BE93" stroke-width="5" stroke-linecap="round" />
+              <path d="M119 33 C112 23 118 14 128 13" fill="none" stroke="#FFF6E6" stroke-width="1.8" stroke-linecap="round" opacity="0.75" />
+            </g>
 
-          <!-- eyes -->
-          <g class="eyes eyes-normal">
-            <g class="eye"><g class="pupil">
-              <ellipse cx="90" cy="110" rx="9" ry="11" fill="#40302C" />
-              <circle cx="87" cy="106" r="2.9" fill="#FFF8EE" />
-              <circle cx="93" cy="114" r="1.5" fill="#FFF8EE" opacity="0.6" />
-            </g></g>
-            <g class="eye"><g class="pupil">
-              <ellipse cx="150" cy="110" rx="9" ry="11" fill="#40302C" />
-              <circle cx="147" cy="106" r="2.9" fill="#FFF8EE" />
-              <circle cx="153" cy="114" r="1.5" fill="#FFF8EE" opacity="0.6" />
-            </g></g>
-          </g>
+            <ellipse class="muzzle" cx="120" cy="143" rx="31" ry="21" fill="#FFFCF5" opacity="0.6" />
 
-          <g class="eyes eyes-happy">
-            <path d="M80 113 Q90 101 100 113" fill="none" stroke="#40302C" stroke-width="4.2" stroke-linecap="round" />
-            <path d="M140 113 Q150 101 160 113" fill="none" stroke="#40302C" stroke-width="4.2" stroke-linecap="round" />
-          </g>
+            <!-- 眉毛 -->
+            <g class="brows" stroke="#B98A5E" stroke-width="2.2" stroke-linecap="round" opacity="0.55" fill="none">
+              <path d="M77 96 Q86 92 96 95" />
+              <path d="M144 95 Q154 92 163 96" />
+            </g>
 
-          <g class="eyes eyes-sleepy">
-            <path d="M80 111 Q90 119 100 111" fill="none" stroke="#40302C" stroke-width="4" stroke-linecap="round" />
-            <path d="M140 111 Q150 119 160 111" fill="none" stroke="#40302C" stroke-width="4" stroke-linecap="round" />
-          </g>
+            <!-- 睁眼 -->
+            <g class="eyes eyes-open">
+              <g class="eye eye-l">
+                <ellipse cx="86" cy="114" rx="14.5" ry="16.5" fill="#3B2723" />
+                <g class="pupil">
+                  <ellipse cx="86" cy="116" rx="10.6" ry="12.6" fill="url(#irisGrad)" />
+                  <ellipse cx="86" cy="117" rx="5.2" ry="7.2" fill="#2A1916" />
+                  <circle cx="81" cy="106" r="4" fill="#FFFDF7" />
+                  <circle cx="91" cy="122" r="2.1" fill="#FFFDF7" opacity="0.8" />
+                </g>
+                <path d="M70 108 Q86 94 102 108" fill="none" stroke="#5A3A30" stroke-width="1.8" opacity="0.35" stroke-linecap="round" />
+              </g>
+              <g class="eye eye-r">
+                <ellipse cx="154" cy="114" rx="14.5" ry="16.5" fill="#3B2723" />
+                <g class="pupil">
+                  <ellipse cx="154" cy="116" rx="10.6" ry="12.6" fill="url(#irisGrad)" />
+                  <ellipse cx="154" cy="117" rx="5.2" ry="7.2" fill="#2A1916" />
+                  <circle cx="149" cy="106" r="4" fill="#FFFDF7" />
+                  <circle cx="159" cy="122" r="2.1" fill="#FFFDF7" opacity="0.8" />
+                </g>
+                <path d="M138 108 Q154 94 170 108" fill="none" stroke="#5A3A30" stroke-width="1.8" opacity="0.35" stroke-linecap="round" />
+              </g>
+            </g>
 
-          <g class="eyes eyes-love">
-            <path transform="translate(90 110)" d="M0 5 C-6 0 -6 -7 -1 -7 C1 -7 3 -5 4 -3 C5 -5 7 -7 9 -7 C14 -7 14 0 8 5 L4 9 Z" fill="#F27E8C" />
-            <path transform="translate(150 110)" d="M0 5 C-6 0 -6 -7 -1 -7 C1 -7 3 -5 4 -3 C5 -5 7 -7 9 -7 C14 -7 14 0 8 5 L4 9 Z" fill="#F27E8C" />
-          </g>
+            <!-- 开心眼 -->
+            <g class="eyes eyes-happy" fill="none" stroke="#4A2F28" stroke-width="4.2" stroke-linecap="round">
+              <path d="M71 115 Q86 100 101 115" />
+              <path d="M139 115 Q154 100 169 115" />
+            </g>
 
-          <g class="eyes eyes-think">
-            <g transform="translate(3 -3)">
-              <ellipse cx="90" cy="110" rx="8.5" ry="10.5" fill="#40302C" />
-              <circle cx="86" cy="105" r="2.6" fill="#FFF8EE" />
-              <ellipse cx="150" cy="110" rx="8.5" ry="10.5" fill="#40302C" />
-              <circle cx="146" cy="105" r="2.6" fill="#FFF8EE" />
+            <!-- 困倦眼 -->
+            <g class="eyes eyes-sleepy" fill="none" stroke="#4A2F28" stroke-width="4" stroke-linecap="round">
+              <path d="M71 112 Q86 122 101 112" />
+              <path d="M139 112 Q154 122 169 112" />
+            </g>
+
+            <!-- 爱心眼 -->
+            <g class="eyes eyes-love">
+              <path transform="translate(77 103) scale(1.15)" d="M0 5 C-7 -1 -7 -8 -1 -8 C2 -8 4 -5 5 -3 C6 -5 8 -8 11 -8 C17 -8 17 -1 10 5 L5 10 Z" fill="#F27E8C" />
+              <path transform="translate(145 103) scale(1.15)" d="M0 5 C-7 -1 -7 -8 -1 -8 C2 -8 4 -5 5 -3 C6 -5 8 -8 11 -8 C17 -8 17 -1 10 5 L5 10 Z" fill="#F27E8C" />
+            </g>
+
+            <!-- 眨眼单眼 -->
+            <g class="eyes eyes-wink">
+              <g class="eye eye-l">
+                <ellipse cx="86" cy="114" rx="14.5" ry="16.5" fill="#3B2723" />
+                <g class="pupil">
+                  <ellipse cx="86" cy="116" rx="10.6" ry="12.6" fill="url(#irisGrad)" />
+                  <ellipse cx="86" cy="117" rx="5.2" ry="7.2" fill="#2A1916" />
+                  <circle cx="81" cy="106" r="4" fill="#FFFDF7" />
+                  <circle cx="91" cy="122" r="2.1" fill="#FFFDF7" opacity="0.8" />
+                </g>
+              </g>
+              <path d="M139 114 Q154 101 169 114" fill="none" stroke="#4A2F28" stroke-width="4.2" stroke-linecap="round" />
+            </g>
+
+            <!-- 星星眼 -->
+            <g class="eyes eyes-star">
+              <path transform="translate(86 114) scale(1.25)" d="M0 -9 L2.6 -2.9 L9 -2.8 L4 1.3 L5.8 8 L0 4.2 L-5.8 8 L-4 1.3 L-9 -2.8 L-2.6 -2.9 Z" fill="url(#starGrad)" stroke="#D99B2D" stroke-width="0.8" />
+              <path transform="translate(154 114) scale(1.25)" d="M0 -9 L2.6 -2.9 L9 -2.8 L4 1.3 L5.8 8 L0 4.2 L-5.8 8 L-4 1.3 L-9 -2.8 L-2.6 -2.9 Z" fill="url(#starGrad)" stroke="#D99B2D" stroke-width="0.8" />
+            </g>
+
+            <!-- 害羞眼 -->
+            <g class="eyes eyes-shy" fill="none" stroke="#4A2F28" stroke-width="3.8" stroke-linecap="round">
+              <path d="M71 118 Q86 107 101 118" />
+              <path d="M139 118 Q154 107 169 118" />
+            </g>
+
+            <!-- 打哈欠眼 -->
+            <g class="eyes eyes-yawn" fill="none" stroke="#4A2F28" stroke-width="4" stroke-linecap="round">
+              <path d="M72 108 Q80 120 88 108" />
+              <path d="M96 108 Q104 120 112 108" />
+              <path d="M128 108 Q136 120 144 108" />
+              <path d="M152 108 Q160 120 168 108" />
+            </g>
+
+            <!-- 腮红 -->
+            <g class="blush">
+              <ellipse cx="64" cy="143" rx="15" ry="9" fill="url(#blushGrad)" opacity="0.75" />
+              <ellipse cx="176" cy="143" rx="15" ry="9" fill="url(#blushGrad)" opacity="0.75" />
+            </g>
+
+            <!-- 胡须 -->
+            <g class="whiskers" stroke="#C99B6F" stroke-width="1.4" stroke-linecap="round" opacity="0.45" fill="none">
+              <path d="M57 137 C47 134 41 134 35 136" />
+              <path d="M57 145 C47 145 41 147 35 150" />
+              <path d="M183 137 C193 134 199 134 205 136" />
+              <path d="M183 145 C193 145 199 147 205 150" />
+            </g>
+
+            <!-- 鼻子与嘴 -->
+            <path class="nose" d="M115 133 Q120 130 125 133 Q123 138 120 139 Q117 138 115 133 Z" fill="#E89398" />
+            <circle cx="118" cy="133" r="1.4" fill="#FFD3D4" opacity="0.9" />
+
+            <g class="mouth mouth-smile">
+              <path d="M110 141 Q115 147 120 143 Q125 147 130 141" fill="none" stroke="#7A4B3F" stroke-width="2.3" stroke-linecap="round" />
+            </g>
+            <g class="mouth mouth-small">
+              <ellipse cx="120" cy="144" rx="3.6" ry="4.4" fill="#7A4B3F" />
+            </g>
+            <g class="mouth mouth-open">
+              <path d="M108 140 Q120 158 132 140 Z" fill="#7A4B3F" />
+              <path d="M114 147 Q120 154 126 147 Q120 151 114 147 Z" fill="#F49C9C" />
+            </g>
+            <g class="mouth mouth-line">
+              <path d="M113 143 Q120 145 127 143" fill="none" stroke="#7A4B3F" stroke-width="2.2" stroke-linecap="round" />
+            </g>
+            <g class="mouth mouth-talk">
+              <ellipse class="talk-jaw" cx="120" cy="144" rx="5.2" ry="6" fill="#7A4B3F" />
+            </g>
+            <g class="mouth mouth-grin">
+              <path d="M106 139 Q120 161 134 139 Z" fill="#7A4B3F" />
+              <path d="M111 141 Q120 146 129 141 Q120 144 111 141 Z" fill="#FFFDF6" />
+              <path d="M115 149 Q120 155 125 149 Q120 152 115 149 Z" fill="#F49C9C" />
+            </g>
+            <g class="mouth mouth-yawn">
+              <ellipse cx="120" cy="146" rx="9" ry="12" fill="#6B3F3A" />
+              <path d="M114 151 Q120 159 126 151 Q120 155 114 151 Z" fill="#F49C9C" />
+            </g>
+
+            <!-- 围巾 -->
+            <g class="scarf">
+              <path d="M78 169 Q120 184 162 169 L158 183 Q120 197 82 183 Z" fill="url(#scarfGrad)" stroke="#5FAE9C" stroke-width="1.1" />
+              <path d="M84 175 Q120 187 156 175" fill="none" stroke="#C8F0E4" stroke-width="1.4" opacity="0.55" />
+              <path class="scarf-tail" d="M154 177 Q169 189 161 203 Q154 210 147 201 Q154 191 147 183 Z" fill="url(#scarfGrad)" stroke="#5FAE9C" stroke-width="1.1" />
+              <circle cx="120" cy="185" r="6.2" fill="url(#bellGrad)" stroke="#C9942E" stroke-width="1" />
+              <path d="M120 181 v5" stroke="#C9942E" stroke-width="1.1" stroke-linecap="round" />
+              <circle cx="120" cy="190" r="1.3" fill="#C9942E" />
+            </g>
+
+            <!-- 星星发夹 -->
+            <g class="star-clip">
+              <circle cx="63" cy="57" r="13" fill="url(#glowGrad)" opacity="0.5" />
+              <path transform="translate(63 57) scale(1.05)" d="M0 -9 L2.6 -2.9 L9 -2.8 L4 1.3 L5.8 8 L0 4.2 L-5.8 8 L-4 1.3 L-9 -2.8 L-2.6 -2.9 Z" fill="url(#starGrad)" stroke="#D9A23A" stroke-width="0.9" />
             </g>
           </g>
+        </g>
 
-          <g class="eyes eyes-wink">
-            <g class="eye"><g class="pupil">
-              <ellipse cx="90" cy="110" rx="9" ry="11" fill="#40302C" />
-              <circle cx="87" cy="106" r="2.8" fill="#FFF8EE" />
-            </g></g>
-            <path d="M140 112 Q150 104 160 112" fill="none" stroke="#40302C" stroke-width="4" stroke-linecap="round" />
-          </g>
+        <!-- 表情粒子 -->
+        <g class="zzz" fill="#A98A6C">
+          <text x="178" y="74" font-size="13" font-family="Segoe UI, sans-serif" opacity="0.8">z</text>
+          <text x="190" y="58" font-size="17" font-family="Segoe UI, sans-serif" opacity="0.65">z</text>
+          <text x="204" y="40" font-size="22" font-family="Segoe UI, sans-serif" opacity="0.5">Z</text>
+        </g>
 
-          <!-- nose + mouths -->
-          <path d="M116 131 Q120 135 124 131 Q120 128.5 116 131 Z" fill="#E28F92" />
-          <g class="mouth mouth-smile">
-            <path d="M112 139 Q116 144 120 140 Q124 144 128 139" fill="none" stroke="#7C5546" stroke-width="2.4" stroke-linecap="round" />
-          </g>
-          <g class="mouth mouth-small">
-            <ellipse cx="120" cy="140" rx="3.6" ry="4.4" fill="#7C4A46" />
-          </g>
-          <g class="mouth mouth-open">
-            <path d="M110 136 Q120 156 130 136 Z" fill="#7C4A46" />
-            <path d="M115 144 Q120 151 125 144 Q120 148 115 144 Z" fill="#F49C9C" />
-          </g>
-          <g class="mouth mouth-line">
-            <path d="M113 140 Q120 142 127 140" fill="none" stroke="#7C5546" stroke-width="2.2" stroke-linecap="round" />
-          </g>
-          <g class="mouth mouth-talk">
-            <ellipse class="talk-jaw" cx="120" cy="141" rx="5.5" ry="6.5" fill="#7C4A46" />
-          </g>
+        <g class="think-dots" fill="#B99A7E">
+          <circle cx="180" cy="78" r="2.4" />
+          <circle cx="190" cy="70" r="3" />
+          <circle cx="202" cy="61" r="3.6" />
+        </g>
 
-          <!-- sleepy zzz -->
-          <g class="zzz" fill="#A98A6C">
-            <text x="172" y="68" font-size="13" font-family="Segoe UI, sans-serif" opacity="0.8">z</text>
-            <text x="184" y="52" font-size="17" font-family="Segoe UI, sans-serif" opacity="0.65">z</text>
-            <text x="198" y="34" font-size="22" font-family="Segoe UI, sans-serif" opacity="0.5">Z</text>
-          </g>
+        <g class="hearts" fill="#F27E8C">
+          <path class="heart h1" transform="translate(198 84)" d="M0 4 C-5 0 -5 -6 -1 -6 C1 -6 2 -4 3 -3 C4 -4 5 -6 7 -6 C11 -6 11 0 6 4 L3 7 Z" />
+          <path class="heart h2" transform="translate(42 92) scale(0.8)" d="M0 4 C-5 0 -5 -6 -1 -6 C1 -6 2 -4 3 -3 C4 -4 5 -6 7 -6 C11 -6 11 0 6 4 L3 7 Z" opacity="0.75" />
+        </g>
 
-          <!-- thinking dots -->
-          <g class="think-dots" fill="#B99A7E">
-            <circle cx="176" cy="70" r="2.4" />
-            <circle cx="186" cy="62" r="3" />
-            <circle cx="198" cy="53" r="3.6" />
-          </g>
+        <g class="sparkles" fill="#FFD98A">
+          <path class="sparkle s1" transform="translate(44 76)" d="M0 -6 L1.7 -1.7 L6 0 L1.7 1.7 L0 6 L-1.7 1.7 L-6 0 L-1.7 -1.7 Z" />
+          <path class="sparkle s2" transform="translate(204 108) scale(0.85)" d="M0 -6 L1.7 -1.7 L6 0 L1.7 1.7 L0 6 L-1.7 1.7 L-6 0 L-1.7 -1.7 Z" />
+          <path class="sparkle s3" transform="translate(74 34) scale(0.7)" d="M0 -6 L1.7 -1.7 L6 0 L1.7 1.7 L0 6 L-1.7 1.7 L-6 0 L-1.7 -1.7 Z" />
+        </g>
 
-          <!-- hearts -->
-          <g class="hearts" fill="#F27E8C">
-            <path class="heart h1" transform="translate(196 70)" d="M0 4 C-5 0 -5 -6 -1 -6 C1 -6 2 -4 3 -3 C4 -4 5 -6 7 -6 C11 -6 11 0 6 4 L3 7 Z" opacity="0.85" />
-            <path class="heart h2" transform="translate(42 82) scale(0.8)" d="M0 4 C-5 0 -5 -6 -1 -6 C1 -6 2 -4 3 -3 C4 -4 5 -6 7 -6 C11 -6 11 0 6 4 L3 7 Z" opacity="0.7" />
-          </g>
+        <g class="notes" fill="#7FBFAF" font-family="Segoe UI, sans-serif" font-weight="700">
+          <text class="note n1" x="196" y="78" font-size="18">♪</text>
+          <text class="note n2" x="46" y="104" font-size="14">♫</text>
+        </g>
 
-          <!-- sparkles -->
-          <g class="sparkles" fill="#FFD98A">
-            <path class="sparkle s1" transform="translate(48 74)" d="M0 -5 L1.4 -1.4 L5 0 L1.4 1.4 L0 5 L-1.4 1.4 L-5 0 L-1.4 -1.4 Z" />
-            <path class="sparkle s2" transform="translate(198 96) scale(0.8)" d="M0 -5 L1.4 -1.4 L5 0 L1.4 1.4 L0 5 L-1.4 1.4 L-5 0 L-1.4 -1.4 Z" />
-            <path class="sparkle s3" transform="translate(74 44) scale(0.65)" d="M0 -5 L1.4 -1.4 L5 0 L1.4 1.4 L0 5 L-1.4 1.4 L-5 0 L-1.4 -1.4 Z" />
-          </g>
+        <g class="exclaim">
+          <path d="M176 11 L183 25 L169 25 Z" fill="#F2A65A" opacity="0.95" />
+          <circle cx="176" cy="30" r="2.2" fill="#F2A65A" />
         </g>
       </svg>
     </div>

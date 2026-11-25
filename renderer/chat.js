@@ -857,7 +857,7 @@
 
     window.dsk.onRefresh(async () => {
       try {
-        const data = await window.dsk.chatBootstrap();
+        const data = await window.dsk.chatBootstrap({ createDraft: false });
         state.persona = data.persona;
         state.personas = data.personas || state.personas;
         state.memory = data.memory || state.memory;

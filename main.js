@@ -1,6 +1,6 @@
 'use strict';
 
-const { app, BrowserWindow, ipcMain, Tray, Menu, nativeImage, screen, shell, dialog, clipboard } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, nativeImage, nativeTheme, screen, shell, dialog, clipboard } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
@@ -539,8 +539,12 @@ function buildTrayMenu() {
   tray.setContextMenu(trayMenu);
 }
 
-function applyLoginItem(enabled) {
-  try {
+function applyTheme() {
+  const theme = store?.getConfig()?.ui?.theme;
+  nativeTheme.themeSource = ['system', 'light', 'dark'].includes(theme) ? theme : 'system';
+}
+
+function applyLoginItem(enabled) {  try {
     app.setLoginItemSettings({
       openAtLogin: !!enabled,
       path: process.execPath,
@@ -951,9 +955,9 @@ function registerIpc() {
   });
 
   // ---- chat ----
-  ipcMain.handle('chat:bootstrap', () => {
-    // 打开对话窗 = 新建一段草稿对话；第一条消息发出后才会落盘
-    const session = store.createSession();
+  ipcMain.handle('chat:bootstrap', (e, opts = {}) => {
+    // 打开对话窗 = 新建一段草稿对话；刷新元信息时不创建
+    const session = opts && opts.createDraft === false ? null : store.createSession();
     const persona = store.getActivePersona();
     return {
       session,
@@ -1094,9 +1098,14 @@ function registerIpc() {
       delete patch.api.clearKey;
     }
     if (payload?.pet) patch.pet = { ...payload.pet };
+    if (payload?.ui) {
+      const theme = payload.ui.theme;
+      if (['system', 'light', 'dark'].includes(theme)) patch.ui = { theme };
+    }
     if (payload?.memory) patch.memory = { ...payload.memory };
 
     store.updateConfig(patch);
+    applyTheme();
 
     if (payload?.api?.clearKey) store.clearApiKey();
     else if (typeof payload?.api?.apiKey === 'string' && payload.api.apiKey.trim()) {
@@ -1373,15 +1382,81 @@ async function runSmoke() {
       console.log(`[smoke] ${name} shell:`, JSON.stringify(shellInfo));
     }
 
+    // 主题：设置页切 深色 / 浅色 / 跟随系统，检查 CSS 变量与系统偏好
+    const themeSelect = await settingsWin.webContents.executeJavaScript(
+      `(() => { const sel = document.querySelector('#set-theme'); return sel ? { value: sel.value } : null; })()`
+    );
+    const probeTheme = (win) =>
+      win.webContents.executeJavaScript(
+        `(() => ({
+          dark: matchMedia('(prefers-color-scheme: dark)').matches,
+          bg: getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()
+        }))()`
+      );
+    const applyThemeViaUI = async (theme) => {
+      await settingsWin.webContents.executeJavaScript(
+        `(() => {
+          const sel = document.querySelector('#set-theme');
+          sel.value = ${JSON.stringify(theme)};
+          document.querySelector('#btn-save').click();
+          return sel.value;
+        })()`
+      );
+      await sleep(700);
+    };
+
+    await applyThemeViaUI('dark');
+    const darkChat = await probeTheme(chatWin);
+    const darkSettings = await probeTheme(settingsWin);
+    fs.writeFileSync(path.join(outDir, 'chat-dark.png'), (await chatWin.webContents.capturePage()).toPNG());
+    fs.writeFileSync(path.join(outDir, 'settings-dark.png'), (await settingsWin.webContents.capturePage()).toPNG());
+
+    await applyThemeViaUI('light');
+    const lightChat = await probeTheme(chatWin);
+
+    await applyThemeViaUI('system');
+    const systemChat = await probeTheme(chatWin);
+    const finalTheme = store.getConfig().ui.theme;
+    console.log(
+      '[smoke] theme:',
+      JSON.stringify({ themeSelect, darkChat, darkSettings, lightChat, systemChat, finalTheme })
+    );
+
     const petInfo = await petWin.webContents.executeJavaScript(
-      `(() => ({
-        preload: !!window.dsk,
-        mood: document.querySelector('#pet').getAttribute('class'),
-        eyes: [...document.querySelectorAll('.eyes')].filter((e) => getComputedStyle(e).display !== 'none').length,
-        bubbleHidden: document.querySelector('#bubble').hidden
-      }))()`
+      `(() => {
+        const svg = document.querySelector('#pet');
+        const box = svg.getBBox();
+        return {
+          preload: !!window.dsk,
+          mood: svg.getAttribute('class'),
+          eyes: [...document.querySelectorAll('.eyes')].filter((e) => getComputedStyle(e).display !== 'none').length,
+          mouths: [...document.querySelectorAll('.mouth')].filter((e) => getComputedStyle(e).display !== 'none').length,
+          paths: svg.querySelectorAll('path').length,
+          bbox: { w: Math.round(box.width), h: Math.round(box.height) },
+          bubbleHidden: document.querySelector('#bubble').hidden
+        };
+      })()`
     );
     console.log('[smoke] pet:', JSON.stringify(petInfo));
+
+    const moodMatrix = await petWin.webContents.executeJavaScript(
+      `(() => {
+        const pet = document.querySelector('#pet');
+        const original = pet.getAttribute('class');
+        const moods = ['idle', 'happy', 'curious', 'sleepy', 'love', 'think', 'talk', 'wink', 'excited', 'shy', 'yawn', 'dance'];
+        const out = {};
+        for (const mood of moods) {
+          pet.setAttribute('class', 'mood-' + mood);
+          const visible = [...document.querySelectorAll('.eyes, .mouth')]
+            .filter((el) => getComputedStyle(el).display !== 'none')
+            .map((el) => el.getAttribute('class'));
+          out[mood] = visible;
+        }
+        pet.setAttribute('class', original);
+        return out;
+      })()`
+    );
+    console.log('[smoke] moods:', JSON.stringify(moodMatrix));
 
     // 气泡显示
     petWin.webContents.send('pet:bubble', { text: '现在 14:32 啦，记得眨眨眼呀。', ts: Date.now() });
@@ -1646,6 +1721,7 @@ app.whenReady().then(async () => {
   }
   logLine('app ready, starting');
   store = new Store(app.getPath('userData')).init();
+  applyTheme();
 
   Menu.setApplicationMenu(null);
   registerIpc();

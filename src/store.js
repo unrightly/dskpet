@@ -117,6 +117,7 @@ class Store {
         apiKeyMasked: this.maskedKey()
       },
       pet: clone(c.pet),
+      ui: clone(c.ui),
       memory: clone(c.memory),
       activePersonaId: c.activePersonaId
     };
