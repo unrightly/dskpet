@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:;" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>设置</title>
+  <link rel="stylesheet" href="settings.css" />
+  <link rel="stylesheet" href="dialog.css" />
+</head>
+<body>
+  <div class="window-shell">
+  <div class="settings">
+    <header class="s-titlebar">
+      <div class="s-title">
+        <b>设置</b>
+        <span id="version"></span>
+      </div>
+      <div class="s-win">
+        <button class="icon-btn" id="s-min" title="最小化">—</button>
+        <button class="icon-btn close" id="s-close" title="关闭">✕</button>
+      </div>
+    </header>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="general">常规</button>
+      <button class="tab" data-tab="model">模型</button>
+      <button class="tab" data-tab="persona">人格</button>
+      <button class="tab" data-tab="memory">记忆</button>
+    </nav>
+
+    <div class="s-body">
+      <!-- 常规 -->
+      <section class="panel active" data-panel="general">
+        <div class="card">
+          <div class="card-title">陪伴方式</div>
+          <label class="row">
+            <div class="row-label">
+              <b>气泡间隔</b>
+              <span>每隔多久，她会自己说一句无关紧要的小提醒</span>
+            </div>
+            <div class="row-input inline">
+              <input type="number" id="set-interval" min="1" max="240" step="1" />
+              <span class="unit">分钟</span>
+            </div>
+          </label>
+          <label class="row">
+            <div class="row-label">
+              <b>智能气泡</b>
+              <span>允许用模型生成碎碎念（失败时自动退回本地台词库）</span>
+            </div>
+            <input type="checkbox" id="set-smart" class="switch" />
+          </label>
+          <label class="row">
+            <div class="row-label">
+              <b>宠物大小</b>
+              <span>拖动滑块调整桌面上的大小</span>
+            </div>
+            <div class="row-input inline">
+              <input type="range" id="set-scale" min="0.8" max="1.4" step="0.05" />
+              <span class="unit" id="scale-val">1.00×</span>
+            </div>
+          </label>
+        </div>
+
+        <div class="card">
+          <div class="card-title">窗口与启动</div>
+          <label class="row">
+            <div class="row-label">
+              <b>始终置顶</b>
+              <span>让宠物常驻最上层，不被其他窗口盖住</span>
+            </div>
+            <input type="checkbox" id="set-ontop" class="switch" />
+          </label>
+          <label class="row">
+            <div class="row-label">
+              <b>开机自启</b>
+              <span>登录系统后自动把宠物放出来</span>
+            </div>
+            <input type="checkbox" id="set-login" class="switch" />
+          </label>
+          <div class="row">
+            <div class="row-label">
+              <b>快速操作</b>
+              <span>宠物被藏起来时，可以从这里找回来</span>
+            </div>
+            <div class="row-input inline">
+              <button class="ghost" id="btn-show-pet">显示宠物</button>
+              <button class="ghost" id="btn-open-chat">打开对话</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card soft">
+          <div class="card-title">小提示</div>
+          <ul class="tips">
+            <li>拖动宠物可以换位置；右键宠物有快捷菜单。</li>
+            <li>当光标不在宠物身上时，透明区域不会挡住下面的窗口。</li>
+            <li>换人格后，宠物名字、颜色、说话方式都会一起变化。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 模型 -->
+      <section class="panel" data-panel="model">
+        <div class="card">
+          <div class="card-title">接口（OpenAI 兼容）</div>
+          <label class="field">
+            <span>服务商预设</span>
+            <select id="set-provider"></select>
+            <small id="provider-note"></small>
+          </label>
+          <label class="field">
+            <span>Base URL</span>
+            <input type="text" id="set-baseurl" placeholder="https://api.deepseek.com/v1" spellcheck="false" />
+            <small>需要是 OpenAI 兼容服务，通常以 /v1 结尾。</small>
+          </label>
+          <label class="field">
+            <span>API Key</span>
+            <input type="password" id="set-apikey" placeholder="留空表示不修改已保存的 Key" spellcheck="false" autocomplete="off" />
+            <small id="key-hint"></small>
+          </label>
+          <label class="field">
+            <span>模型名</span>
+            <input type="text" id="set-model" placeholder="deepseek-chat" spellcheck="false" />
+          </label>
+          <label class="row compact">
+            <div class="row-label"><b>清除已保存的 Key</b></div>
+            <input type="checkbox" id="set-clearkey" class="switch" />
+          </label>
+        </div>
+
+        <div class="card">
+          <div class="card-title">生成参数</div>
+          <label class="row">
+            <div class="row-label"><b>温度</b><span>越高越活泼，越低越稳定</span></div>
+            <div class="row-input inline">
+              <input type="range" id="set-temp" min="0" max="1.5" step="0.05" />
+              <span class="unit" id="temp-val">0.85</span>
+            </div>
+          </label>
+          <label class="row">
+            <div class="row-label"><b>最大回复长度</b><span>max_tokens，日常 600~1200 足够</span></div>
+            <div class="row-input inline"><input type="number" id="set-maxtokens" min="80" max="8000" step="50" /></div>
+          </label>
+          <label class="row">
+            <div class="row-label"><b>视觉输入</b><span>支持多模态模型时，图片会直接发给模型看</span></div>
+            <input type="checkbox" id="set-vision" class="switch" />
+          </label>
+          <label class="field">
+            <span>额外请求头（可选，JSON 或每行 Key: Value）</span>
+            <textarea id="set-headers" rows="2" placeholder='{"X-Title":"DskPet"}' spellcheck="false"></textarea>
+          </label>
+        </div>
+
+        <div class="card">
+          <div class="card-title">连通性</div>
+          <div class="row">
+            <div class="row-label"><b>测试连接</b><span>会发一次很小的请求验证配置</span></div>
+            <div class="row-input inline">
+              <button class="primary small" id="btn-test">测试</button>
+            </div>
+          </div>
+          <div class="test-status" id="test-status"></div>
+        </div>
+      </section>
+
+      <!-- 人格 -->
+      <section class="panel persona-panel" data-panel="persona">
+        <aside class="persona-list-wrap">
+          <div class="persona-list-head">
+            <b>人格预设</b>
+            <span id="persona-count"></span>
+          </div>
+          <div class="persona-list" id="persona-list"></div>
+          <div class="persona-actions">
+            <button class="ghost" id="btn-persona-new">新建</button>
+            <button class="ghost" id="btn-persona-dup">复制</button>
+            <button class="ghost danger" id="btn-persona-del">删除</button>
+          </div>
+        </aside>
+
+        <div class="persona-editor">
+          <div class="grid2">
+            <label class="field">
+              <span>名字</span>
+              <input type="text" id="pe-name" maxlength="20" />
+            </label>
+            <label class="field">
+              <span>主题色</span>
+              <div class="color-row">
+                <input type="color" id="pe-color" />
+                <input type="text" id="pe-color-text" spellcheck="false" />
+              </div>
+            </label>
+          </div>
+          <label class="field">
+            <span>一句话介绍</span>
+            <input type="text" id="pe-tagline" maxlength="60" />
+          </label>
+          <label class="field">
+            <span>见面第一句话</span>
+            <input type="text" id="pe-greeting" maxlength="120" />
+          </label>
+          <label class="field">
+            <span>system · 人设（她是谁、怎么看待自己）</span>
+            <textarea id="pe-persona" rows="5"></textarea>
+          </label>
+          <label class="field">
+            <span>soul · 灵魂（价值观、在意的东西、情绪边界）</span>
+            <textarea id="pe-soul" rows="4"></textarea>
+          </label>
+          <label class="field">
+            <span>style · 说话方式</span>
+            <textarea id="pe-style" rows="3"></textarea>
+          </label>
+          <label class="field">
+            <span>专属碎碎念（每行一句，可留空）</span>
+            <textarea id="pe-bubbles" rows="3" placeholder="我刚刚数了数窗外的云，一共三朵。"></textarea>
+          </label>
+          <div class="persona-save-row">
+            <button class="ghost" id="btn-persona-active">设为当前人格</button>
+            <button class="primary" id="btn-persona-save">保存人格</button>
+            <span id="persona-status"></span>
+          </div>
+          <p class="fineprint">保存后，对话中的 system 提示会由「人设 + 灵魂 + 说话方式 + 长期记忆 + 当前时间」共同组成。</p>
+        </div>
+      </section>
+
+      <!-- 记忆 -->
+      <section class="panel" data-panel="memory">
+        <div class="card">
+          <div class="row">
+            <div class="row-label">
+              <b>长期档案</b>
+              <span id="mem-stats">0 段记忆</span>
+            </div>
+            <div class="row-input inline">
+              <button class="ghost" id="btn-mem-summarize">现在整理一次</button>
+              <button class="ghost danger" id="btn-mem-clear">清空记忆</button>
+            </div>
+          </div>
+          <textarea id="mem-profile" rows="7" placeholder="她对你的长期印象会写在这里，也可以手动编辑。"></textarea>
+          <div class="persona-save-row">
+            <button class="primary small" id="btn-profile-save">保存档案</button>
+            <span id="mem-status"></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">最近片段</div>
+          <div class="mem-list" id="mem-list"></div>
+        </div>
+
+        <div class="card soft">
+          <div class="card-title">记忆怎么工作</div>
+          <ul class="tips">
+            <li>每聊 2 轮左右，模型会把对话压缩成一条「片段」，并更新长期档案。</li>
+            <li>新开对话时，档案和最近片段会一起进入 system 提示，所以不用从零开始。</li>
+            <li>记忆只保存在本机的 config 目录里，不会上传到别处。</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <footer class="s-footer">
+      <span id="save-status"></span>
+      <div class="footer-actions">
+        <button class="ghost" id="btn-close">关闭</button>
+        <button class="primary" id="btn-save">保存常规与模型</button>
+      </div>
+    </footer>
+  </div>
+  </div>
+
+  <script src="dialog.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

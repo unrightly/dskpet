@@ -1,0 +1,6 @@
+node_modules/
+.smoke/
+.smoke-data/
+dist/
+out/
+*.log

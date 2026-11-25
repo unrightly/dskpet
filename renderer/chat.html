@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; font-src 'self';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>绒绒</title>
+  <link rel="stylesheet" href="chat.css" />
+  <link rel="stylesheet" href="dialog.css" />
+</head>
+<body>
+  <div class="window-shell">
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-face" id="brand-face">绒</div>
+        <div class="brand-text">
+          <b id="brand-name">绒绒</b>
+          <span id="brand-sub">桌面小伙伴</span>
+        </div>
+      </div>
+
+      <button class="new-chat" id="new-chat"><span>＋</span> 新对话</button>
+
+      <div class="session-list" id="session-list"></div>
+
+      <div class="sidebar-foot">
+        <button class="ghost" id="foot-memory">🧠 记忆库</button>
+        <button class="ghost" id="foot-settings">⚙ 设置</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="titlebar" id="titlebar">
+        <div class="title-info">
+          <div class="title-face" id="title-face">绒</div>
+          <div class="title-text">
+            <b id="chat-title">新的对话</b>
+            <span id="chat-sub">正在加载…</span>
+          </div>
+        </div>
+        <div class="win-actions">
+          <button class="icon-btn" id="btn-memory" title="记忆库">🧠</button>
+          <button class="icon-btn" id="btn-settings" title="设置">⚙</button>
+          <span class="win-sep"></span>
+          <button class="icon-btn win-btn" id="btn-min" title="最小化">—</button>
+          <button class="icon-btn win-btn close" id="btn-close" title="关闭">✕</button>
+        </div>
+      </header>
+
+      <div class="messages" id="messages"></div>
+
+      <div class="composer-wrap">
+        <div id="drop-overlay" class="drop-overlay"><div class="drop-inner">松开，把文件交给我</div></div>
+        <div id="attachment-bar" class="attachment-bar"></div>
+        <div class="composer" id="composer">
+          <button class="attach-btn" id="btn-attach" title="发送文件">📎</button>
+          <textarea id="input" rows="1" placeholder="和小绒说点什么…（Enter 发送，Shift+Enter 换行）"></textarea>
+          <button class="send-btn" id="btn-send" title="发送">↑</button>
+          <button class="stop-btn" id="btn-stop" title="停止生成" hidden>■</button>
+        </div>
+        <div class="composer-hint">
+          <span>链接、文件路径点击即可打开 · 可拖入文件</span>
+          <span id="hint-right"></span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="memory-drawer" id="memory-drawer" hidden>
+    <div class="drawer-head">
+      <b>🧠 记忆库</b>
+      <button class="icon-btn" id="drawer-close">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+    <div class="drawer-foot">
+      <button class="ghost wide" id="drawer-settings">管理记忆</button>
+      <button class="ghost wide" id="drawer-summarize">现在整理一次</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="markdown.js"></script>
+  <script src="dialog.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>

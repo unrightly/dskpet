@@ -1,0 +1,70 @@
+{
+  "name": "dskpet",
+  "productName": "绒绒桌宠",
+  "version": "1.0.1",
+  "description": "A cute always-on-top desktop pet with LLM chat, long-term memory and file/URL handling.",
+  "main": "main.js",
+  "author": "dskPet",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "smoke": "node tools/smoke.js",
+    "icon": "node tools/gen-icon.js",
+    "ico": "electron tools/gen-ico.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.dskpet.app",
+    "productName": "绒绒桌宠",
+    "copyright": "Copyright © 2026 DskPet",
+    "asar": true,
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "renderer/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "electronDist": "node_modules/electron/dist",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "DskPet-Setup-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "绒绒桌宠",
+      "uninstallDisplayName": "绒绒桌宠",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "installerHeaderIcon": "assets/icon.ico",
+      "deleteAppDataOnUninstall": false,
+      "language": "2052",
+      "runAfterFinish": true
+    }
+  }
+}

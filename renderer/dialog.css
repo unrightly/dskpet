@@ -1,0 +1,145 @@
+.app-dialog-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(56, 42, 28, 0.28);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.16s ease;
+}
+
+.app-dialog-overlay.show {
+  opacity: 1;
+}
+
+.app-dialog-card {
+  width: min(368px, 100%);
+  padding: 20px 20px 16px;
+  border: 1px solid #EADCC9;
+  border-radius: 22px;
+  corner-shape: squircle;
+  background: linear-gradient(180deg, #FFFDF9 0%, #FCF7EE 100%);
+  box-shadow:
+    0 24px 60px rgba(64, 42, 20, 0.24),
+    0 4px 14px rgba(64, 42, 20, 0.10);
+  transform: translateY(10px) scale(0.96);
+  opacity: 0;
+  transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.2), opacity 0.16s ease;
+}
+
+.app-dialog-overlay.show .app-dialog-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.app-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.app-dialog-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  corner-shape: squircle;
+  background: #FCEEDC;
+  color: #A06A2C;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+
+.app-dialog-icon.danger {
+  background: #FBE3DF;
+  color: #C4574C;
+}
+
+.app-dialog-text {
+  min-width: 0;
+  padding-top: 1px;
+}
+
+.app-dialog-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #3F3228;
+  line-height: 1.5;
+}
+
+.app-dialog-message {
+  margin-top: 5px;
+  font-size: 12.3px;
+  line-height: 1.7;
+  color: #94826E;
+  white-space: pre-wrap;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.app-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.app-dialog-btn {
+  min-width: 72px;
+  padding: 8px 16px;
+  border-radius: 11px;
+  corner-shape: squircle;
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: filter 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.app-dialog-btn.ghost {
+  background: transparent;
+  border-color: #EADCC9;
+  color: #5F4C3C;
+}
+
+.app-dialog-btn.ghost:hover {
+  background: #FBF4E8;
+}
+
+.app-dialog-btn.primary {
+  background: linear-gradient(145deg, #F2A65A, #C97B36);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(201, 123, 54, 0.24);
+}
+
+.app-dialog-btn.danger {
+  background: linear-gradient(145deg, #D4675C, #B84A40);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(184, 74, 64, 0.24);
+}
+
+.app-dialog-btn:hover {
+  filter: brightness(1.04);
+}
+
+.app-dialog-btn:focus-visible {
+  outline: 2px solid rgba(242, 166, 90, 0.55);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-dialog-overlay,
+  .app-dialog-card {
+    transition: none;
+  }
+}

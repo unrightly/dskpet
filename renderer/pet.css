@@ -1,0 +1,430 @@
+* { box-sizing: border-box; }
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  cursor: default;
+}
+
+#stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------------- bubble ---------------- */
+
+.bubble {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  z-index: 5;
+  max-width: min(330px, 92vw);
+  padding: 10px 15px 11px;
+  background: #FFFDF8;
+  border: 1.5px solid #EAD7BF;
+  border-radius: 20px;
+  corner-shape: squircle;
+  color: #574334;
+  font-size: 13.5px;
+  line-height: 1.65;
+  letter-spacing: 0.2px;
+  box-shadow: 0 12px 26px rgba(120, 82, 42, 0.16), 0 2px 6px rgba(120, 82, 42, 0.08);
+  opacity: 0;
+  transform: translate(-50%, 8px) scale(0.92);
+  transform-origin: 50% 100%;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.26s cubic-bezier(0.2, 0.9, 0.3, 1.25);
+  cursor: pointer;
+}
+
+.bubble.show {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+  pointer-events: auto;
+}
+
+.bubble[hidden] {
+  display: none;
+}
+
+.bubble-inner {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bubble-tail {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 14px;
+  height: 14px;
+  background: #FFFDF8;
+  border-right: 1.5px solid #EAD7BF;
+  border-bottom: 1.5px solid #EAD7BF;
+  border-bottom-right-radius: 3px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: #C9A882;
+  opacity: 0;
+}
+
+.bubble.typing .caret {
+  opacity: 1;
+  animation: caretBlink 0.85s steps(1) infinite;
+}
+
+/* ---------------- pet stage ---------------- */
+
+#pet-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: calc(224px * var(--scale, 1));
+  height: calc(206px * var(--scale, 1));
+  transform: translateX(-50%);
+  cursor: grab;
+  -webkit-app-region: no-drag;
+}
+
+#pet-wrap:active {
+  cursor: grabbing;
+}
+
+#fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+#pet {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 8px 12px rgba(120, 82, 42, 0.16));
+  transition: filter 0.3s ease;
+  animation: none;
+}
+
+#pet-wrap:hover #pet {
+  filter: drop-shadow(0 10px 16px rgba(120, 82, 42, 0.22));
+}
+
+/* ---------------- expressions ---------------- */
+
+.eyes,
+.mouth,
+.zzz,
+.think-dots,
+.hearts {
+  display: none;
+}
+
+#pet.mood-idle .eyes-normal,
+#pet.mood-curious .eyes-normal,
+#pet.mood-talk .eyes-normal {
+  display: inline;
+}
+
+#pet.mood-think .eyes-think,
+#pet.mood-happy .eyes-happy,
+#pet.mood-sleepy .eyes-sleepy,
+#pet.mood-love .eyes-love,
+#pet.mood-wink .eyes-wink {
+  display: inline;
+}
+
+#pet.mood-idle .mouth-smile,
+#pet.mood-wink .mouth-smile {
+  display: inline;
+}
+
+#pet.mood-curious .mouth-small,
+#pet.mood-sleepy .mouth-small {
+  display: inline;
+}
+
+#pet.mood-happy .mouth-open,
+#pet.mood-love .mouth-open {
+  display: inline;
+}
+
+#pet.mood-think .mouth-line {
+  display: inline;
+}
+
+#pet.mood-talk .mouth-talk {
+  display: inline;
+}
+
+#pet.mood-sleepy .zzz {
+  display: inline;
+}
+
+#pet.mood-think .think-dots {
+  display: inline;
+}
+
+#pet.mood-love .hearts {
+  display: inline;
+}
+
+#pet.mood-curious .eyes-normal .eye,
+#pet.mood-idle .eyes-normal .eye {
+  transition: transform 0.12s ease;
+}
+
+#pet.mood-happy .blush ellipse,
+#pet.mood-love .blush ellipse {
+  opacity: 0.75;
+}
+
+#pet.mood-happy .tail-g {
+  animation-duration: 2.1s;
+}
+
+#pet.mood-love .tail-g {
+  animation-duration: 1.6s;
+}
+
+/* ---------------- idle animation ---------------- */
+
+.body-g {
+  transform-box: view-box;
+  transform-origin: 120px 178px;
+  animation: breathe 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tail-g {
+  transform-box: view-box;
+  transform-origin: 168px 162px;
+  animation: wag 3.6s ease-in-out infinite;
+}
+
+.tail-glow {
+  animation: glowPulse 3.2s ease-in-out infinite;
+}
+
+.blinking .eyes-normal .eye {
+  transform: scaleY(0.08);
+}
+
+.eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.08s linear;
+}
+
+.pupil {
+  transition: transform 0.18s ease-out;
+  transform: translate(var(--look-x, 0px), var(--look-y, 0px));
+}
+
+.twitch-l .ear-l {
+  animation: earTwitch 0.5s ease;
+  transform-box: view-box;
+  transform-origin: 74px 50px;
+}
+
+.twitch-r .ear-r {
+  animation: earTwitch 0.5s ease;
+  transform-box: view-box;
+  transform-origin: 166px 50px;
+}
+
+.hop #pet {
+  animation: hop 0.52s cubic-bezier(0.3, 0.9, 0.4, 1);
+}
+
+.stretching .body-g {
+  animation: stretch 0.9s ease;
+}
+
+.tail-flick .tail-g {
+  animation: tailFlick 0.75s ease;
+}
+
+.shine .sparkle {
+  animation-duration: 0.8s;
+}
+
+.sparkle {
+  animation: twinkle 2.8s ease-in-out infinite;
+}
+
+.sparkle.s2 {
+  animation-delay: 0.7s;
+}
+
+.sparkle.s3 {
+  animation-delay: 1.4s;
+}
+
+.heart {
+  animation: heartPulse 1.6s ease-in-out infinite;
+}
+
+.heart.h2 {
+  animation-delay: 0.5s;
+}
+
+.mood-sleepy .zzz text {
+  animation: zfloat 2.6s ease-in-out infinite;
+}
+
+.mood-sleepy .zzz text:nth-child(2) {
+  animation-delay: 0.35s;
+}
+
+.mood-sleepy .zzz text:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+.mood-think .think-dots circle {
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.mood-think .think-dots circle:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.mood-think .think-dots circle:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.mood-talk .talk-jaw {
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: talk 0.34s ease-in-out infinite alternate;
+}
+
+.mood-love .heart,
+.mood-happy .sparkle {
+  opacity: 1;
+}
+
+.ground-shadow {
+  animation: shadowPulse 5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* ---------------- fx hearts (chat open) ---------------- */
+
+.fx-heart {
+  position: absolute;
+  left: 50%;
+  bottom: 60%;
+  font-size: 16px;
+  color: #F27E8C;
+  opacity: 0;
+  animation: floatUp 1.3s ease-out forwards;
+  pointer-events: none;
+}
+
+/* ---------------- keyframes ---------------- */
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.008, 1.014); }
+}
+
+@keyframes wag {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-7deg); }
+}
+
+@keyframes tailFlick {
+  0%, 100% { transform: rotate(0deg); }
+  35% { transform: rotate(-14deg); }
+  70% { transform: rotate(4deg); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes earTwitch {
+  0%, 100% { transform: rotate(0deg); }
+  40% { transform: rotate(-7deg); }
+  70% { transform: rotate(2deg); }
+}
+
+@keyframes hop {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-10px); }
+  65% { transform: translateY(1px); }
+}
+
+@keyframes stretch {
+  0%, 100% { transform: scale(1, 1); }
+  40% { transform: scale(0.97, 1.05) translateY(-2px); }
+  70% { transform: scale(1.02, 0.98); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes heartPulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes zfloat {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50% { transform: translateY(-4px); opacity: 0.85; }
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes talk {
+  from { transform: scaleY(0.6); }
+  to { transform: scaleY(1.35); }
+}
+
+@keyframes shadowPulse {
+  0%, 100% { transform: scaleX(1); opacity: 0.13; }
+  50% { transform: scaleX(0.95); opacity: 0.1; }
+}
+
+@keyframes caretBlink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+
+@keyframes floatUp {
+  0% { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), -70px) scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .body-g,
+  .tail-g,
+  .sparkle,
+  .ground-shadow {
+    animation: none !important;
+  }
+}

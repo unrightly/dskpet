@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:;" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>绒绒</title>
+  <link rel="stylesheet" href="pet.css" />
+</head>
+<body>
+  <div id="stage">
+    <div id="bubble" class="bubble interactive" hidden>
+      <div class="bubble-inner"><span id="bubble-text"></span><i class="caret"></i></div>
+      <div class="bubble-tail"></div>
+    </div>
+
+    <div id="pet-wrap" class="interactive" aria-label="桌面宠物">
+      <div id="fx"></div>
+      <svg id="pet" class="mood-idle" viewBox="0 0 240 220" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="furGrad" cx="50%" cy="38%" r="72%">
+            <stop offset="0%" stop-color="#FFFDF8" />
+            <stop offset="62%" stop-color="#FBEBD7" />
+            <stop offset="100%" stop-color="#F3D7B6" />
+          </radialGradient>
+          <linearGradient id="tailGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#F6D9B8" />
+            <stop offset="100%" stop-color="#FFE7B4" />
+          </linearGradient>
+          <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFE9A8" stop-opacity="0.95" />
+            <stop offset="100%" stop-color="#FFE9A8" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        <ellipse class="ground-shadow" cx="120" cy="204" rx="52" ry="8" fill="#1B1208" opacity="0.13" />
+
+        <g class="tail-g">
+          <path class="tail" d="M166 166 C202 170 210 136 189 119" fill="none" stroke="url(#tailGrad)" stroke-width="15" stroke-linecap="round" />
+          <circle class="tail-glow" cx="189" cy="119" r="12" fill="url(#glowGrad)" />
+          <circle class="tail-tip" cx="189" cy="119" r="6.5" fill="#FFEDBE" />
+        </g>
+
+        <g class="body-g">
+          <!-- ears -->
+          <g class="ear ear-l">
+            <path d="M70 52 L58 14 Q56 8 63 12 L94 33 Z" fill="url(#furGrad)" stroke="#EBCBA6" stroke-width="1.4" stroke-linejoin="round" />
+            <path d="M70 46 L63 25 L85 37 Z" fill="#F6C0C0" opacity="0.85" />
+          </g>
+          <g class="ear ear-r">
+            <path d="M170 52 L182 14 Q184 8 177 12 L146 33 Z" fill="url(#furGrad)" stroke="#EBCBA6" stroke-width="1.4" stroke-linejoin="round" />
+            <path d="M170 46 L177 25 L155 37 Z" fill="#F6C0C0" opacity="0.85" />
+          </g>
+
+          <!-- body / head -->
+          <path class="body" d="M120 30 C80 30 54 62 54 104 C54 148 82 178 120 178 C158 178 186 148 186 104 C186 62 160 30 120 30 Z" fill="url(#furGrad)" stroke="#EBCBA6" stroke-width="1.5" />
+
+          <!-- paws -->
+          <ellipse class="paw" cx="100" cy="174" rx="15" ry="8.5" fill="#FFF8EC" stroke="#EBCBA6" stroke-width="1.2" />
+          <ellipse class="paw" cx="140" cy="174" rx="15" ry="8.5" fill="#FFF8EC" stroke="#EBCBA6" stroke-width="1.2" />
+          <path d="M94 176 v3 M100 177 v3 M106 176 v3" stroke="#E4C39C" stroke-width="1.3" stroke-linecap="round" opacity="0.8" />
+          <path d="M134 176 v3 M140 177 v3 M146 176 v3" stroke="#E4C39C" stroke-width="1.3" stroke-linecap="round" opacity="0.8" />
+
+          <!-- blush -->
+          <g class="blush">
+            <ellipse cx="74" cy="128" rx="11" ry="7" fill="#F7A8A8" opacity="0.5" />
+            <ellipse cx="166" cy="128" rx="11" ry="7" fill="#F7A8A8" opacity="0.5" />
+          </g>
+
+          <!-- whiskers -->
+          <g class="whiskers" stroke="#D9B79A" stroke-width="1.5" stroke-linecap="round" opacity="0.75">
+            <path d="M64 132 L44 127" />
+            <path d="M64 139 L43 139" />
+            <path d="M64 146 L46 151" />
+            <path d="M176 132 L196 127" />
+            <path d="M176 139 L197 139" />
+            <path d="M176 146 L194 151" />
+          </g>
+
+          <!-- eyes -->
+          <g class="eyes eyes-normal">
+            <g class="eye"><g class="pupil">
+              <ellipse cx="90" cy="110" rx="9" ry="11" fill="#40302C" />
+              <circle cx="87" cy="106" r="2.9" fill="#FFF8EE" />
+              <circle cx="93" cy="114" r="1.5" fill="#FFF8EE" opacity="0.6" />
+            </g></g>
+            <g class="eye"><g class="pupil">
+              <ellipse cx="150" cy="110" rx="9" ry="11" fill="#40302C" />
+              <circle cx="147" cy="106" r="2.9" fill="#FFF8EE" />
+              <circle cx="153" cy="114" r="1.5" fill="#FFF8EE" opacity="0.6" />
+            </g></g>
+          </g>
+
+          <g class="eyes eyes-happy">
+            <path d="M80 113 Q90 101 100 113" fill="none" stroke="#40302C" stroke-width="4.2" stroke-linecap="round" />
+            <path d="M140 113 Q150 101 160 113" fill="none" stroke="#40302C" stroke-width="4.2" stroke-linecap="round" />
+          </g>
+
+          <g class="eyes eyes-sleepy">
+            <path d="M80 111 Q90 119 100 111" fill="none" stroke="#40302C" stroke-width="4" stroke-linecap="round" />
+            <path d="M140 111 Q150 119 160 111" fill="none" stroke="#40302C" stroke-width="4" stroke-linecap="round" />
+          </g>
+
+          <g class="eyes eyes-love">
+            <path transform="translate(90 110)" d="M0 5 C-6 0 -6 -7 -1 -7 C1 -7 3 -5 4 -3 C5 -5 7 -7 9 -7 C14 -7 14 0 8 5 L4 9 Z" fill="#F27E8C" />
+            <path transform="translate(150 110)" d="M0 5 C-6 0 -6 -7 -1 -7 C1 -7 3 -5 4 -3 C5 -5 7 -7 9 -7 C14 -7 14 0 8 5 L4 9 Z" fill="#F27E8C" />
+          </g>
+
+          <g class="eyes eyes-think">
+            <g transform="translate(3 -3)">
+              <ellipse cx="90" cy="110" rx="8.5" ry="10.5" fill="#40302C" />
+              <circle cx="86" cy="105" r="2.6" fill="#FFF8EE" />
+              <ellipse cx="150" cy="110" rx="8.5" ry="10.5" fill="#40302C" />
+              <circle cx="146" cy="105" r="2.6" fill="#FFF8EE" />
+            </g>
+          </g>
+
+          <g class="eyes eyes-wink">
+            <g class="eye"><g class="pupil">
+              <ellipse cx="90" cy="110" rx="9" ry="11" fill="#40302C" />
+              <circle cx="87" cy="106" r="2.8" fill="#FFF8EE" />
+            </g></g>
+            <path d="M140 112 Q150 104 160 112" fill="none" stroke="#40302C" stroke-width="4" stroke-linecap="round" />
+          </g>
+
+          <!-- nose + mouths -->
+          <path d="M116 131 Q120 135 124 131 Q120 128.5 116 131 Z" fill="#E28F92" />
+          <g class="mouth mouth-smile">
+            <path d="M112 139 Q116 144 120 140 Q124 144 128 139" fill="none" stroke="#7C5546" stroke-width="2.4" stroke-linecap="round" />
+          </g>
+          <g class="mouth mouth-small">
+            <ellipse cx="120" cy="140" rx="3.6" ry="4.4" fill="#7C4A46" />
+          </g>
+          <g class="mouth mouth-open">
+            <path d="M110 136 Q120 156 130 136 Z" fill="#7C4A46" />
+            <path d="M115 144 Q120 151 125 144 Q120 148 115 144 Z" fill="#F49C9C" />
+          </g>
+          <g class="mouth mouth-line">
+            <path d="M113 140 Q120 142 127 140" fill="none" stroke="#7C5546" stroke-width="2.2" stroke-linecap="round" />
+          </g>
+          <g class="mouth mouth-talk">
+            <ellipse class="talk-jaw" cx="120" cy="141" rx="5.5" ry="6.5" fill="#7C4A46" />
+          </g>
+
+          <!-- sleepy zzz -->
+          <g class="zzz" fill="#A98A6C">
+            <text x="172" y="68" font-size="13" font-family="Segoe UI, sans-serif" opacity="0.8">z</text>
+            <text x="184" y="52" font-size="17" font-family="Segoe UI, sans-serif" opacity="0.65">z</text>
+            <text x="198" y="34" font-size="22" font-family="Segoe UI, sans-serif" opacity="0.5">Z</text>
+          </g>
+
+          <!-- thinking dots -->
+          <g class="think-dots" fill="#B99A7E">
+            <circle cx="176" cy="70" r="2.4" />
+            <circle cx="186" cy="62" r="3" />
+            <circle cx="198" cy="53" r="3.6" />
+          </g>
+
+          <!-- hearts -->
+          <g class="hearts" fill="#F27E8C">
+            <path class="heart h1" transform="translate(196 70)" d="M0 4 C-5 0 -5 -6 -1 -6 C1 -6 2 -4 3 -3 C4 -4 5 -6 7 -6 C11 -6 11 0 6 4 L3 7 Z" opacity="0.85" />
+            <path class="heart h2" transform="translate(42 82) scale(0.8)" d="M0 4 C-5 0 -5 -6 -1 -6 C1 -6 2 -4 3 -3 C4 -4 5 -6 7 -6 C11 -6 11 0 6 4 L3 7 Z" opacity="0.7" />
+          </g>
+
+          <!-- sparkles -->
+          <g class="sparkles" fill="#FFD98A">
+            <path class="sparkle s1" transform="translate(48 74)" d="M0 -5 L1.4 -1.4 L5 0 L1.4 1.4 L0 5 L-1.4 1.4 L-5 0 L-1.4 -1.4 Z" />
+            <path class="sparkle s2" transform="translate(198 96) scale(0.8)" d="M0 -5 L1.4 -1.4 L5 0 L1.4 1.4 L0 5 L-1.4 1.4 L-5 0 L-1.4 -1.4 Z" />
+            <path class="sparkle s3" transform="translate(74 44) scale(0.65)" d="M0 -5 L1.4 -1.4 L5 0 L1.4 1.4 L0 5 L-1.4 1.4 L-5 0 L-1.4 -1.4 Z" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <script src="pet.js"></script>
+</body>
+</html>
